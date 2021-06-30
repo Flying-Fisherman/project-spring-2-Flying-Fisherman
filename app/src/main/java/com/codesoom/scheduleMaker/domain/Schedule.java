@@ -23,4 +23,10 @@ public class Schedule {
     private String title;
 
     private String content;
+
+    public void updataData(Schedule source) {
+        this.id = source.getId();
+        this.title = source.getTitle();
+        this.content = source.getContent();
+    }
 }
