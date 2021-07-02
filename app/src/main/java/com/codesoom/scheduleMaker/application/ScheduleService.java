@@ -25,7 +25,7 @@ public class ScheduleService {
     }
 
     /**
-     * Schedule 목록을 반환합니다.
+     * Schedule 목록을 리턴합니다.
      *
      * @return Schedule 목록
      */
@@ -34,7 +34,7 @@ public class ScheduleService {
     }
 
     /**
-     * 고유 식별자로 Schedule을 검색해 반환합니다.
+     * 고유 식별자로 Schedule을 검색해 리턴합니다.
      *
      * @param id Schedule 식별자
      * @return 검색된 Schedule
@@ -84,11 +84,11 @@ public class ScheduleService {
     }
 
     /**
-     * 식별자를 이용해 Schedule을 검색합니다.
+     * 식별자를 이용해 Schedule을 검색 후 리턴합니다.
      *
      * @param id Schedule 식별자
      * @return 검색된 Schedule
-     * @throws ScheduleNotFoundException 검색 조건에 맞는 Schedule이 없을 시 예외를 던집니다.
+     * @throws ScheduleNotFoundException 검색 조건에 맞는 Schedule이 없을 경우
      */
     private Schedule findSchedule(Long id) {
         return scheduleRepository.findById(id)

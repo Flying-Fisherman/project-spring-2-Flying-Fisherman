@@ -65,7 +65,7 @@ dependencies {
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client:2.7.2'
 
     // Spring Security
-    implementation 'org.springframework.boot:spring-boot-starter-security'
+//    implementation 'org.springframework.boot:spring-boot-starter-security'
 
     // Spring REST Docs
     asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
@@ -85,7 +85,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass = 'com.codesoom.assignment.App'
+    mainClass = 'com.codesoom.scheduleMaker.App'
 }
 
 tasks.named('test') {
