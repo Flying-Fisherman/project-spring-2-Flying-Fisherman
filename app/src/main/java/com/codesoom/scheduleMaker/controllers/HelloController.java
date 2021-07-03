@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloController {
     @RequestMapping("/")
     public String sayHello() {
-        return "Hello, world! Wellcome to ScheduleMaker";
+        return "Hello, world! \n Wellcome to ScheduleMaker";
     }
 }
