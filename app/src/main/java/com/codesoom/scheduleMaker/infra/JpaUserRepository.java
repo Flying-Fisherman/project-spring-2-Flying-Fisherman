@@ -18,4 +18,10 @@ public interface JpaUserRepository
     boolean existsById(String id);
 
     boolean existsByPhone(String phone);
+
+    Optional<User> findById(String userId);
+
+    Optional<User> findByUid(Long uid);
+
+    void delete(User user);
 }

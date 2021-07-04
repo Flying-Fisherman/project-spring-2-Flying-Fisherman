@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.checkerframework.common.aliasing.qual.Unique;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -54,4 +55,15 @@ public class User {
      */
     @Unique
     private String email;
+
+    public void changePassword(String password,
+                               PasswordEncoder passwordEncoder) {
+        this.password = passwordEncoder.encode(password);
+    }
+
+    public void changeWith(User source) {
+        phone = source.phone;
+        name = source.name;
+        email = source.email;
+    }
 }
