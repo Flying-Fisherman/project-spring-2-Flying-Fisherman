@@ -66,4 +66,9 @@ public class User {
         name = source.name;
         email = source.email;
     }
+
+    public boolean authenticate(String password,
+                                PasswordEncoder passwordEncoder) {
+        return passwordEncoder.matches(password, this.password);
+    }
 }

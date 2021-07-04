@@ -1,8 +1,10 @@
 package com.codesoom.scheduleMaker.controllers;
 
 import com.codesoom.scheduleMaker.dto.ErrorResponse;
+import com.codesoom.scheduleMaker.errors.LoginFailException;
 import com.codesoom.scheduleMaker.errors.ScheduleNotFoundException;
 import com.codesoom.scheduleMaker.errors.UserDataDuplicationException;
+import com.codesoom.scheduleMaker.errors.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -31,5 +33,17 @@ public class ControllerErrorAdvice {
     @ExceptionHandler(UserDataDuplicationException.class)
     public ErrorResponse handleUserDataDuplication() {
         return new ErrorResponse("User's some data is already existed");
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(LoginFailException.class)
+    public ErrorResponse handleLoginFailException() {
+        return new ErrorResponse("Log-in failed");
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(UserNotFoundException.class)
+    public ErrorResponse handleUserNotFound() {
+        return new ErrorResponse("User not found");
     }
 }
