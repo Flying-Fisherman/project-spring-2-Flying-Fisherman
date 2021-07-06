@@ -4,6 +4,7 @@ import com.codesoom.scheduleMaker.application.ScheduleService;
 import com.codesoom.scheduleMaker.domain.Schedule;
 import com.codesoom.scheduleMaker.dto.ScheduleData;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -59,6 +60,7 @@ public class ScheduleController {
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("isAuthenticated()")
     public Schedule createSchedule(@RequestBody @Valid ScheduleData scheduleData) {
         return scheduleService.createSchedule(scheduleData);
     }
@@ -71,6 +73,7 @@ public class ScheduleController {
      * @return 수정된 Schedule
      */
     @PatchMapping("{id}")
+    @PreAuthorize("isAuthenticated()")
     public Schedule updateSchedule(
             @PathVariable Long id,
             @RequestBody @Valid ScheduleData scheduleData
@@ -84,6 +87,7 @@ public class ScheduleController {
      * @param id Schedule 고유 식별자
      */
     @DeleteMapping("{id}")
+    @PreAuthorize("isAuthenticated()")
     public void deleteSchedule(@PathVariable Long id) {
         scheduleService.deleteSchdule(id);
     }

@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * 로그인 시 회원의 Email과 비밀번호를 대조, 토큰값을 확인합니다.
+ * 로그인 시 회원의 토큰값과 권한을 확인합니다.
  */
 public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
     private final AuthenticationService authenticationService;
@@ -30,13 +30,13 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
     }
 
     /**
-     * 회원의 Email과 비밀번호를 대조하고, 토큰값을 확인합니다.
+     * 토큰값과 권한을 확인합니다.
      *
      * @param request 클라이언트 요청 정보
      * @param response 서버 응답 정보
      * @param chain 연결된 Filter 정보
-     * @throws IOException 요청-응답 간 예외가 발생 시 IOException을 던집니다.
-     * @throws ServletException Servlet에서 예외가 발생 시 ServletException을 던집니다.
+     * @throws IOException 요청-응답 간 예외가 발생 시
+     * @throws ServletException Servlet에서 예외가 발생 시
      */
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -47,10 +47,10 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 
         if (authorization != null) {
             String accessToken = authorization.substring("Bearer ".length());
-            Long userId = authenticationService.parseToken(accessToken);
-            List<Role> roles = authenticationService.roles(userId);
+            Long userUid = authenticationService.parseToken(accessToken);
+            List<Role> roles = authenticationService.roles(userUid);
             Authentication authentication =
-                    new UserAuthentication(userId, roles);
+                    new UserAuthentication(userUid, roles);
 
             SecurityContext context = SecurityContextHolder.getContext();
             context.setAuthentication(authentication);
