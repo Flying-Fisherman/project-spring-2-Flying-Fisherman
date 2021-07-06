@@ -56,17 +56,35 @@ public class User {
     @Unique
     private String email;
 
+    /**
+     * 회원정보의 비밀변호를 변경, 암호화합니다.
+     *
+     * @param password 변경 할 회원정보의 비밀번호
+     * @param passwordEncoder 비밀번호 암호화 모듈
+     */
     public void changePassword(String password,
                                PasswordEncoder passwordEncoder) {
         this.password = passwordEncoder.encode(password);
     }
 
+    /**
+     * 회원정보의 정보를 변경합니다.
+     *
+     * @param source 변경 할 회원정보
+     */
     public void changeWith(User source) {
         phone = source.phone;
         name = source.name;
         email = source.email;
     }
 
+    /**
+     * 로그인 시 올바른 비밀번호인지 판별합니다.
+     *
+     * @param password 입력받은 비밀번호
+     * @param passwordEncoder 비밀번호 암호화 모듈
+     * @return 비밀번호 판별 결과
+     */
     public boolean authenticate(String password,
                                 PasswordEncoder passwordEncoder) {
         return passwordEncoder.matches(password, this.password);
