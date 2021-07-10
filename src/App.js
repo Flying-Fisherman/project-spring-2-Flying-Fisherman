@@ -1,9 +1,13 @@
 import React from 'react'
-import Counter from './Counter'
+import Navbar from './Navbar'
+import MainContent from './MainContent'
 
 function App() {
   return (
-    <Counter />
+  <div>
+     <Navbar/>
+     <MainContent/>
+  </div>
   );
 }
 
