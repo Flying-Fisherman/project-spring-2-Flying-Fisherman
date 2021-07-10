@@ -20,8 +20,9 @@ public class AuthenticationErrorFilter extends HttpFilter {
      * @param request 클라이언트 요청 정보
      * @param response 서버 응답 정보
      * @param chain 연결된 Filter 정보
-     * @throws IOException 요청-응답 간 예외가 발생 시 IOException을 던집니다.
-     * @throws ServletException Servlet에서 예외가 발생 시 ServletException을 던집니다.
+     * @throws IOException 요청-응답 간 예외가 발생 시
+     * @throws ServletException Servlet에서 예외가 발생 시
+     * @exception InvalidTokenException
      */
     @Override
     protected void doFilter(HttpServletRequest request,
