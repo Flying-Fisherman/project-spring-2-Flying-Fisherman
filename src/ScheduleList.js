@@ -15,7 +15,7 @@ function ScheduleList() {
             setLoading(true);
 
             const response = await axios.get(
-                'localhost:8080/schedule'
+                'schedule'
             );
             setSchedules(response.data)
             } catch (e) {
