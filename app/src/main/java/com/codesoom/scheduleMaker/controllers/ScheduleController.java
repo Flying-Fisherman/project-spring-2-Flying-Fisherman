@@ -60,7 +60,8 @@ public class ScheduleController {
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("isAuthenticated()")
+//    @PreAuthorize("isAuthenticated()")
+// ToDo : Front 로그인 후 다시 인증 넣을 것
     public Schedule createSchedule(@RequestBody @Valid ScheduleData scheduleData) {
         return scheduleService.createSchedule(scheduleData);
     }

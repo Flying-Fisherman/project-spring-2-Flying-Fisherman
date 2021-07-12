@@ -1,6 +1,6 @@
 import React from 'react';
-import Navbar from './Navbar';
-import MainContent from './MainContent';
+import Navbar from './components/js/Navbar';
+import MainContent from './components/js/MainContent';
 
 function App() {
   return (
