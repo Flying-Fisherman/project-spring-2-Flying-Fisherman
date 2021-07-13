@@ -24,7 +24,7 @@ export function ScheduleList() {
         };
 
     useEffect(() => {
-        fetchSchedules();
+        setTimeout(() => { fetchSchedules(); }, 1000);
     }, [])
 
     if (loading) return <div>로딩중...</div>

@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import ScheduleList from './ScheduleList'
+import ScheduleList from './ScheduleList';
+import Navbar from './Navbar';
+import {Redirect} from "react-router-dom";
 
-function ScheduleMaker() {
+function ScheduleMaker({ history }) {
 
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
+    const [isBack, setIsBack] = useState(false);
 
     const titleHandler = (e) => {
         e.preventDefault();
@@ -38,10 +41,16 @@ function ScheduleMaker() {
         .then((res) => console.log(res));
 
         empty();
-        ScheduleList();
+        goBack();
     };
 
+    const goBack = () => {
+        history.push('/');
+    }
+
     return (
+    <>
+    <Navbar/>
 
     <form className="form-horizontal" onSubmit={submitHandler}>
       <div className="form-group">
@@ -65,11 +74,13 @@ function ScheduleMaker() {
       <div className="form-group">
         <div className="col-sm-offset-2 col-sm-10">
           <button type="submit" className="btn btn-default"
-          onClick={makeSchedules}>내용 추가하기</button>
+          onClick={makeSchedules} >내용 추가하기</button>
         </div>
       </div>
+
     </form>
 
+    </>
     )
 }
 

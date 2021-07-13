@@ -1,20 +1,24 @@
 import React from 'react';
-import ScheduleList from './ScheduleList'
-import ScheduleMaker from './ScheduleMaker'
+import ScheduleList from './ScheduleList';
+import Navbar from './Navbar';
 
 function MainContent() {
     return (
+    <>
+        <Navbar/>
+
         <div className="container">
             <div className="text-center mt-5">
-                <h1>A Bootstrap 5 Starter Template</h1>
-                <p className="lead">A complete project boilerplate built with Bootstrap</p>
-                <p>ScheduleMaker - v0.0.1</p>
+                <h1>당신의 스케쥴을 관리해보세요!</h1>
+                <p className="lead">매일매일 반복되는 일정을 간결하게 설정하고, 알림을 받을 수 있습니다.</p>
+                <p>ScheduleMaker - v0.0.2</p>
                 <ScheduleList/>
                 <br/>
                 <br/>
-                <ScheduleMaker/>
             </div>
         </div>
+
+    </>
     )
 }
 
