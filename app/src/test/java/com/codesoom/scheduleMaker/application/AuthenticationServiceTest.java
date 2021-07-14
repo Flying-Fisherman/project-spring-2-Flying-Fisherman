@@ -1,11 +1,15 @@
 package com.codesoom.scheduleMaker.application;
 
+import com.codesoom.scheduleMaker.domain.Role;
 import com.codesoom.scheduleMaker.domain.RoleRepository;
 import com.codesoom.scheduleMaker.domain.User;
 import com.codesoom.scheduleMaker.domain.UserRepository;
+import com.codesoom.scheduleMaker.dto.RoleData;
 import com.codesoom.scheduleMaker.errors.InvalidTokenException;
 import com.codesoom.scheduleMaker.errors.LoginFailException;
 import com.codesoom.scheduleMaker.utils.JwtUtil;
+import com.github.dozermapper.core.DozerBeanMapperBuilder;
+import com.github.dozermapper.core.Mapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,6 +19,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -34,23 +39,36 @@ class AuthenticationServiceTest {
 
 
     private AuthenticationService authenticationService;
+    private Mapper mapper;
 
     private UserRepository userRepository = mock(UserRepository.class);
     private RoleRepository roleRepository = mock(RoleRepository.class);
+
+    private User user;
 
     @BeforeEach
     void setUp() {
         JwtUtil jwtUtil = new JwtUtil(SECRET);
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-        authenticationService = new AuthenticationService(
-                        userRepository, passwordEncoder, jwtUtil, roleRepository);
+        mapper = DozerBeanMapperBuilder.buildDefault();
 
-        User user = User.builder().uid(REGISTERED_UID).build();
+        authenticationService = new AuthenticationService(
+                        userRepository, passwordEncoder, jwtUtil, roleRepository, mapper);
+
+        user = User.builder().uid(REGISTERED_UID).build();
         user.changePassword("password", passwordEncoder);
+
+        RoleData roleData = RoleData.builder()
+                .userUid(user.getUid())
+                .roleName("USER")
+                .build();
 
         given(userRepository.findById("tester"))
                 .willReturn(Optional.of(user));
+
+        given(roleRepository.save(any(Role.class)))
+                .willReturn(mapper.map(roleData, Role.class));
     }
 
     @Test
@@ -95,5 +113,12 @@ class AuthenticationServiceTest {
         assertThatThrownBy(
                 () -> authenticationService.parseToken(INVALID_TOKEN)
         ).isInstanceOf(InvalidTokenException.class);
+    }
+
+    @Test
+    void setBasicRole() {
+        Role role = authenticationService.setBasicRole(user);
+
+        assertThat(role.getRoleName()).isEqualTo("USER");
     }
 }

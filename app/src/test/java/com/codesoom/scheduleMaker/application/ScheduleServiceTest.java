@@ -86,7 +86,6 @@ class ScheduleServiceTest {
     @Test
     void createSchedule() {
         ScheduleData scheduleData = ScheduleData.builder()
-                .id(EXISTED_ID)
                 .title("ToDo")
                 .content("Testing ToDo")
                 .build();
@@ -95,8 +94,6 @@ class ScheduleServiceTest {
 
         verify(scheduleRepository).save(any(Schedule.class));
 
-        assertThat(schedule.getId())
-                .isEqualTo(EXISTED_ID);
         assertThat(schedule.getTitle())
                 .isEqualTo("ToDo");
         assertThat(schedule.getContent())
@@ -106,7 +103,6 @@ class ScheduleServiceTest {
     @Test
     void updateSchedule() {
         ScheduleData scheduleData = ScheduleData.builder()
-                .id(EXISTED_ID)
                 .title("Another ToDo")
                 .content("Testing Another ToDo")
                 .build();

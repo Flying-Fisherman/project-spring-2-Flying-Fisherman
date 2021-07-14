@@ -1,5 +1,6 @@
 package com.codesoom.scheduleMaker.controllers;
 
+import com.codesoom.scheduleMaker.application.AuthenticationService;
 import com.codesoom.scheduleMaker.application.UserService;
 import com.codesoom.scheduleMaker.domain.User;
 import com.codesoom.scheduleMaker.dto.UserModificationData;
@@ -25,9 +26,11 @@ import javax.validation.Valid;
 @RequestMapping("/users")
 public class UserController {
     private final UserService userService;
+    private final AuthenticationService authenticationService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, AuthenticationService authenticationService) {
         this.userService = userService;
+        this.authenticationService = authenticationService;
     }
 
     /**
@@ -41,6 +44,8 @@ public class UserController {
     // ToDo : BindingResult를 사용한 상세한 Validation
     UserResultData create (@RequestBody @Valid UserRegistrationData registrationData) {
         User user = userService.registerUser(registrationData);
+
+        authenticationService.setBasicRole(user);
 
         return getUserResultData(user);
     }

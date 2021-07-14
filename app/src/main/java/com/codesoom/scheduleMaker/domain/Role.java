@@ -1,5 +1,6 @@
 package com.codesoom.scheduleMaker.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -30,14 +31,14 @@ public class Role {
      * 권한의 이름
      */
     @Getter
-    private String name;
+    private String roleName;
 
-    public Role(Long userUid, String name) {
+    public Role(Long userUid, String roleName) {
         this.userUid = userUid;
-        this.name = name;
+        this.roleName = roleName;
     }
 
-    public Role(String name) {
-        this(null, name);
+    public Role(String roleName) {
+        this(null, roleName);
     }
 }
