@@ -9,27 +9,28 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 
+
 /**
- * Schedule DTO
+ * Role DTO
  */
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ScheduleData {
+public class RoleData {
 
     /**
-     * Schedule 제목
+     * Role 소유 회원 UID
      */
     @NotBlank
-    @Mapping("title")
-    private String title;
+    @Mapping("userUid")
+    private Long userUid;
 
     /**
-     * Schedule 내용
+     * Role 이름
      */
     @NotBlank
-    @Mapping("content")
-    private String content;
+    @Mapping("roleName")
+    private String roleName;
 }

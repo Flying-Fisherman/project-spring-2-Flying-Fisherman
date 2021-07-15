@@ -60,8 +60,7 @@ public class ScheduleController {
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-//    @PreAuthorize("isAuthenticated()")
-// ToDo : Front 로그인 후 다시 인증 넣을 것
+    @PreAuthorize("isAuthenticated() and hasRole('USER')")
     public Schedule createSchedule(@RequestBody @Valid ScheduleData scheduleData) {
         return scheduleService.createSchedule(scheduleData);
     }
@@ -74,7 +73,7 @@ public class ScheduleController {
      * @return 수정된 Schedule
      */
     @PatchMapping("{id}")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("isAuthenticated() and hasRole('USER')")
     public Schedule updateSchedule(
             @PathVariable Long id,
             @RequestBody @Valid ScheduleData scheduleData
@@ -88,7 +87,7 @@ public class ScheduleController {
      * @param id Schedule 고유 식별자
      */
     @DeleteMapping("{id}")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("isAuthenticated() and hasRole('USER')")
     public void deleteSchedule(@PathVariable Long id) {
         scheduleService.deleteSchdule(id);
     }
