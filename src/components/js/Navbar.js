@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 function Navbar() {
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+
             <div className="container">
                 <Link className="navbar-brand" to="/">Start ScheduleMaker</Link>
 
@@ -60,8 +61,15 @@ function Navbar() {
                             </ul>
                         </li>
                     </ul>
+
+                    <button type="button" className="btn btn-primary md-offset-6 md-2"
+                    data-bs-toggle="modal" data-bs-target="#logInModal">
+                        Log In
+                    </button>
+
                 </div>
             </div>
+
         </nav>
     );
 }
