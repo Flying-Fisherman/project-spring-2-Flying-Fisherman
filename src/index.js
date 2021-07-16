@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 //import { hot } from "react-hot-loader/root";
+//import bootstrap from 'bootstrap'
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import NewModal from './NewModal'
 
 function Navbar() {
     return (
@@ -62,12 +63,10 @@ function Navbar() {
                         </li>
                     </ul>
 
-                    <button type="button" className="btn btn-primary md-offset-6 md-2"
-                    data-bs-toggle="modal" data-bs-target="#logInModal">
-                        Log In
-                    </button>
-
                 </div>
+
+                <NewModal/>
+
             </div>
 
         </nav>

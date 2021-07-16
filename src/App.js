@@ -16,7 +16,6 @@ function App() {
             <Route path="/SignUp" exact component={SignUp} />
             <Route path="/making" exact component={ScheduleMaker} />
         </Switch>
-            <LogIn/>
       </Router>
   </>
   );

@@ -1,6 +1,7 @@
 import React from 'react';
 import ScheduleList from './ScheduleList';
 
+
 function MainContent() {
     return (
     <>
@@ -14,7 +15,6 @@ function MainContent() {
                 <br/>
             </div>
         </div>
-
     </>
     )
 }
