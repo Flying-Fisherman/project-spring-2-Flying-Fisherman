@@ -1,12 +1,10 @@
 import React from 'react';
 import ScheduleList from './ScheduleList';
-import Navbar from './Navbar';
+
 
 function MainContent() {
     return (
     <>
-        <Navbar/>
-
         <div className="container">
             <div className="text-center mt-5">
                 <h1>당신의 스케쥴을 관리해보세요!</h1>
@@ -17,7 +15,6 @@ function MainContent() {
                 <br/>
             </div>
         </div>
-
     </>
     )
 }

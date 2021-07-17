@@ -45,9 +45,9 @@ export function ScheduleList() {
                 </th>
             </tr>
             </thead>
-        {schedules.map(schedule => (
+        {schedules.map((schedule, index) => (
             <tbody>
-            <tr key={schedule.id}>
+            <tr key={schedule.id} id={index}>
                 <td className="col-md-3">
                     {schedule.title}
                 </td>
