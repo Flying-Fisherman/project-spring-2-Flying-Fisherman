@@ -21,6 +21,6 @@ spring.devtools.livereload.enabled: true
 spring:
   profiles: mariadb
   datasource:
-    url: jdbc:mariadb://localhost:3306/test
+    url: jdbc:mariadb://localhost:3306/ScheduleMaker
     username: root
-    password: root1234
+    password: ghdud1230
