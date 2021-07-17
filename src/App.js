@@ -7,6 +7,7 @@ import SignUp from './components/js/SignUp';
 import LogIn from './components/js/LogInModal';
 
 function App() {
+
   return (
   <>
       <Router>
