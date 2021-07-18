@@ -1,13 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import ScheduleList from './ScheduleList';
-import {Redirect} from "react-router-dom";
 
 function ScheduleMaker({ history }) {
 
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
-    const [isBack, setIsBack] = useState(false);
 
     const titleHandler = (e) => {
         e.preventDefault();
