@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import NewModal from './NewModal'
+import LogInModal from './LogInModal'
 
 function Navbar() {
     return (
@@ -65,7 +65,7 @@ function Navbar() {
 
                 </div>
 
-                <NewModal/>
+                <LogInModal/>
 
             </div>
 

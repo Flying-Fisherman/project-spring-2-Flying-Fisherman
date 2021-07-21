@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios'
+import { withRouter } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -18,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function NewModal() {
+function LogInModal({ history }) {
 
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
@@ -57,31 +58,68 @@ function NewModal() {
     const logIn = async () => {
         axios.post('http://localhost:8080/session', body)
         .then((res) => {
-        registerSuccessful(userId, res.data.token)
-        console.log(res)
+        registerSuccessful(userId, res.data.accessToken)
         });
-        setLog(true);
     }
 
-    const registerSuccessful = (userId, token) => {
+    const registerSuccessful = (userId, token, e) => {
         localStorage.setItem('token', token);
         localStorage.setItem('authenticatedUser', userId);
+        localStorage.setItem('log', true);
+
+        setTimeout(function() {
+          handleClose();
+        }, 200);
+
+        setTimeout(function() {
+          goBack();
+        }, 200);
     }
 
-    const [log, setLog] = useState(false);
+    const goBack = () => {
+        history.push('/');
+    }
+
+    const logOut = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('authenticatedUser');
+        localStorage.removeItem('log');
+
+        setTimeout(function() {
+         goBack();
+        }, 500);
+    }
+
+    const goSignIn = () => {
+        history.push('/');
+    }
 
     return (
         <>
-        { log
+        { localStorage.getItem('log')
 
-        ? <div className="md-offset-6 md-2">
+        ? <>
+          <div className="md-2" style={{color:"white", fontSize:"16px"}}>
           Hello! { localStorage.getItem('authenticatedUser') }
           </div>
+          <button type="button" onClick={logOut} className="btn btn-primary md-2"
+          style={{ marginLeft:"20px" }}>
+            Log Out
+          </button>
+          </>
 
-        : <button type="button" onClick={handleOpen} className="btn btn-primary md-offset-6 md-2">
+
+        : <>
+          <button type="button" onClick={handleOpen} className="btn btn-primary md-offset-6 md-2">
             Log In
           </button>
+          <button type="button" onClick={goSignIn} className="btn btn-primary md-2"
+          style={{ marginLeft:"20px" }}>
+            Sign In
+          </button>
+          </>
         }
+
         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
 
           <DialogTitle id="form-dialog-title">
@@ -130,4 +168,4 @@ function NewModal() {
     )
 }
 
-export default NewModal;
+export default withRouter(LogInModal);

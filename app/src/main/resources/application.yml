@@ -1,6 +1,7 @@
 spring:
   datasource:
-    url: jdbc:mariadb://localhost:3306/ScheduleMaker
+    url: jdbc:mariadb://schedulemaker.cwkzykfbidqz.us-east-2.rds.amazonaws.com:3306/ScheduleMaker
+    driver-class-name: org.mariadb.jdbc.Driver
     username: root
     password: ghdud1230
 
@@ -29,3 +30,21 @@ jwt:
   secret: "FlyingFishermanScheduleMakerCode"
 
 spring.devtools.livereload.enabled: true
+---
+
+spring:
+  profiles: mariadb
+  datasource:
+    url: jdbc:mariadb://schedulemaker.cwkzykfbidqz.us-east-2.rds.amazonaws.com:3306/ScheduleMaker
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: root
+    password: ghdud1230
+
+---
+spring:
+  profiles: local
+  datasource:
+    url: jdbc:mariadb://localhost:3306/ScheduleMaker
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: root
+    password: ghdud1230

@@ -11,7 +11,7 @@ public class SessionRequestData {
     /**
      * 요청받은 회원 ID
      */
-    private String userId;
+    private String id;
 
     /**
      * 요청받은 비밀번호
