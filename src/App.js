@@ -4,7 +4,6 @@ import ScheduleMaker from './components/js/ScheduleMaker';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Navbar from './components/js/Navbar';
 import SignUp from './components/js/SignUp';
-import LogIn from './components/js/LogInModal';
 
 function App() {
 

@@ -33,7 +33,7 @@ public class SessionController {
     public SessionResponseData login(
             @RequestBody SessionRequestData sessionRequestData
     ) {
-        String userId = sessionRequestData.getUserId();
+        String userId = sessionRequestData.getId();
         String password = sessionRequestData.getPassword();
 
         String accessToken = authenticationService.login(userId, password);
