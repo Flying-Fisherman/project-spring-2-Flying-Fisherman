@@ -30,7 +30,7 @@ public class UserRegistrationData {
      * 등록할 회원의 비밀번호
      */
     @NotBlank
-    @Pattern(regexp = "[a-zA-z1-9]{6,12}", message = "비밀번호는 영어와 숫자로 포함해서 6~20자리 이내로 입력해주세요")
+    @Pattern(regexp = "[a-zA-z0-9]{6,20}", message = "비밀번호는 영어와 숫자로 포함해서 6~20자리 이내로 입력해주세요")
     @Mapping("password")
     private String password;
 

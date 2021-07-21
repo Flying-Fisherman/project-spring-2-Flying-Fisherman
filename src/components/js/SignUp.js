@@ -49,9 +49,14 @@ function SignUp({ history }) {
     };
 
     const makeUserData = async () => {
-        axios.post('http://localhost:8080/users', body);
-
-        goBack();
+        axios.post('http://localhost:8080/users', body)
+        .then(() => {
+          console.log("success");
+          goBack();
+        })
+        .catch(() => {
+          console.log("SignUp Error");
+        })
     };
 
     const goBack = () => {

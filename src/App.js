@@ -13,7 +13,7 @@ function App() {
             <Navbar/>
         <Switch>
             <Route path="/" exact render={ () => <MainContent/> } />
-            <Route path="/SignUp" exact component={SignUp} />
+            <Route path="/signUp" exact component={SignUp} />
             <Route path="/making" exact component={ScheduleMaker} />
         </Switch>
       </Router>
