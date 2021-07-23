@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import AxiosIntercept from './AxiosIntercept'
 
 function ScheduleMaker({ history }) {
 
@@ -34,7 +35,13 @@ function ScheduleMaker({ history }) {
 
     const makeSchedules = async () => {
         axios.post('http://localhost:8080/schedule', body)
-        .then((res) => console.log(res));
+        .then((res) => console.log(res))
+        .catch((error) => {
+            console.log(error);
+            console.log(error.response);
+            console.log(error.request);
+            console.log(error.config);
+        });
 
         empty();
         goBack();
