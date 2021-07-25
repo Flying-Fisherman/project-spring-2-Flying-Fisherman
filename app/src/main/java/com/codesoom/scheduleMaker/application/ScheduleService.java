@@ -2,8 +2,11 @@ package com.codesoom.scheduleMaker.application;
 
 import com.codesoom.scheduleMaker.domain.Schedule;
 import com.codesoom.scheduleMaker.domain.ScheduleRepository;
+import com.codesoom.scheduleMaker.domain.User;
+import com.codesoom.scheduleMaker.domain.UserRepository;
 import com.codesoom.scheduleMaker.dto.ScheduleData;
 import com.codesoom.scheduleMaker.errors.ScheduleNotFoundException;
+import com.codesoom.scheduleMaker.errors.UserNotFoundException;
 import com.github.dozermapper.core.Mapper;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +21,12 @@ import java.util.List;
 public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
     private final Mapper mapper;
+    private final UserRepository userRepository;
 
-    public ScheduleService(Mapper dozerMapper, ScheduleRepository scheduleRepository) {
+    public ScheduleService(Mapper dozerMapper, ScheduleRepository scheduleRepository, UserRepository userRepository) {
         this.mapper = dozerMapper;
         this.scheduleRepository = scheduleRepository;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -47,9 +52,15 @@ public class ScheduleService {
      * Schedule을 생성합니다.
      *
      * @param scheduleData 생성하려는 Schedule 정보
+     * @param user
      * @return 생성된 Schedule
      */
-    public Schedule createSchedule(ScheduleData scheduleData) {
+    public Schedule createSchedule(ScheduleData scheduleData, User user) {
+        System.out.println(user.getId());
+        user = userRepository.findById(user.getId())
+                .orElseThrow(() -> new UserNotFoundException(1L));
+        System.out.println(user.getUid());
+        scheduleData.setUserId(user.getUid());
         Schedule schedule = mapper.map(scheduleData, Schedule.class);
         return scheduleRepository.save(schedule);
     }

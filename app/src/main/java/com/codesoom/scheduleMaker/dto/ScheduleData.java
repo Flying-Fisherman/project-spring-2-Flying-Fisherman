@@ -32,4 +32,10 @@ public class ScheduleData {
     @NotBlank
     @Mapping("content")
     private String content;
+
+    /**
+     * Schedule 작성자 ID
+     */
+    @Mapping("userId")
+    private Long userId;
 }

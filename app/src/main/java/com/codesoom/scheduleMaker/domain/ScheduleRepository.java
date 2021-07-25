@@ -23,6 +23,8 @@ public interface ScheduleRepository {
      */
     Optional<Schedule> findById(Long id);
 
+    Optional<Schedule> findByUserId(Long userId);
+
     /**
      * Schedule 정보를 저장
      *

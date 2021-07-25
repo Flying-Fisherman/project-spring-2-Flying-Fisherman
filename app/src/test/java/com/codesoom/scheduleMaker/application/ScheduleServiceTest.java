@@ -2,6 +2,8 @@ package com.codesoom.scheduleMaker.application;
 
 import com.codesoom.scheduleMaker.domain.Schedule;
 import com.codesoom.scheduleMaker.domain.ScheduleRepository;
+import com.codesoom.scheduleMaker.domain.User;
+import com.codesoom.scheduleMaker.domain.UserRepository;
 import com.codesoom.scheduleMaker.dto.ScheduleData;
 import com.codesoom.scheduleMaker.errors.ScheduleNotFoundException;
 import com.github.dozermapper.core.DozerBeanMapperBuilder;
@@ -23,6 +25,8 @@ class ScheduleServiceTest {
     private ScheduleService scheduleService;
     private final ScheduleRepository scheduleRepository =
             mock(ScheduleRepository.class);
+    private final UserRepository userRepository =
+            mock(UserRepository.class);
 
     private static final Long EXISTED_ID = 1L;
     private static final Long NOT_EXISTED_ID = 100L;
@@ -31,7 +35,7 @@ class ScheduleServiceTest {
     void setUp() {
         Mapper mapper = DozerBeanMapperBuilder.buildDefault();
 
-        scheduleService = new ScheduleService(mapper, scheduleRepository);
+        scheduleService = new ScheduleService(mapper, scheduleRepository, userRepository);
 
         Schedule schedule = Schedule.builder()
                 .id(1L)
@@ -90,7 +94,9 @@ class ScheduleServiceTest {
                 .content("Testing ToDo")
                 .build();
 
-        Schedule schedule = scheduleService.createSchedule(scheduleData);
+        User user = new User();
+
+        Schedule schedule = scheduleService.createSchedule(scheduleData, user);
 
         verify(scheduleRepository).save(any(Schedule.class));
 

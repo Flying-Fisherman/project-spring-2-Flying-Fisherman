@@ -2,6 +2,7 @@ package com.codesoom.scheduleMaker.controllers;
 
 import com.codesoom.scheduleMaker.application.ScheduleService;
 import com.codesoom.scheduleMaker.domain.Schedule;
+import com.codesoom.scheduleMaker.domain.User;
 import com.codesoom.scheduleMaker.dto.ScheduleData;
 import com.codesoom.scheduleMaker.errors.ScheduleNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
@@ -46,6 +47,8 @@ class ScheduleControllerTest {
                 .content("Testing")
                 .build();
 
+        User user = new User();
+
         given(scheduleService.getAllSchedules())
                 .willReturn(List.of(schedule));
 
@@ -55,7 +58,7 @@ class ScheduleControllerTest {
         given(scheduleService.getSchedule(NOT_REGISTERED_ID))
                 .willThrow(new ScheduleNotFoundException(NOT_REGISTERED_ID));
 
-        given(scheduleService.createSchedule(any(ScheduleData.class)))
+        given(scheduleService.createSchedule(any(ScheduleData.class), user))
                 .willReturn(schedule);
 
         given(scheduleService.updateSchedule(eq(REGISTERED_ID), any(ScheduleData.class)))

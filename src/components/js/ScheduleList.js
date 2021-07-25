@@ -45,17 +45,24 @@ export function ScheduleList() {
                 </th>
             </tr>
             </thead>
+
+
         {schedules.map((schedule, index) => (
-            <tbody>
-            <tr key={schedule.id} id={index}>
-                <td className="col-md-3">
+            schedule.userId === localStorage.getItem('authenticatedUser')
+            ? <>
+              <tbody>
+                <tr key={schedule.id} id={index}>
+                  <td className="col-md-3">
                     {schedule.title}
-                </td>
-                <td className="col-md-9">
+                  </td>
+                  <td className="col-md-9">
                     {schedule.content}
-                </td>
-            </tr>
-            </tbody>
+                  </td>
+                  <input type="hidden" value={schedule.userId}/>
+                </tr>
+              </tbody>
+            </>
+            : null
                 )
             )
         }

@@ -2,9 +2,13 @@ package com.codesoom.scheduleMaker.controllers;
 
 import com.codesoom.scheduleMaker.application.ScheduleService;
 import com.codesoom.scheduleMaker.domain.Schedule;
+import com.codesoom.scheduleMaker.domain.User;
 import com.codesoom.scheduleMaker.dto.ScheduleData;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -60,9 +64,13 @@ public class ScheduleController {
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("isAuthenticated() and hasRole('USER')")
-    public Schedule createSchedule(@RequestBody @Valid ScheduleData scheduleData) {
-        return scheduleService.createSchedule(scheduleData);
+    @PreAuthorize("isAuthenticated() and hasAuthority('USER')")
+    public Schedule createSchedule(@RequestBody @Valid ScheduleData scheduleData,
+                                   @AuthenticationPrincipal User user) {
+        User user2 = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println(user2.getId());
+        System.out.println(user);
+        return scheduleService.createSchedule(scheduleData, user);
     }
 
     /**
@@ -73,7 +81,7 @@ public class ScheduleController {
      * @return 수정된 Schedule
      */
     @PatchMapping("{id}")
-    @PreAuthorize("isAuthenticated() and hasRole('USER')")
+    @PreAuthorize("isAuthenticated() and hasAuthority('USER')")
     public Schedule updateSchedule(
             @PathVariable Long id,
             @RequestBody @Valid ScheduleData scheduleData
@@ -87,7 +95,7 @@ public class ScheduleController {
      * @param id Schedule 고유 식별자
      */
     @DeleteMapping("{id}")
-    @PreAuthorize("isAuthenticated() and hasRole('USER')")
+    @PreAuthorize("isAuthenticated() and hasAuthority('USER')")
     public void deleteSchedule(@PathVariable Long id) {
         scheduleService.deleteSchdule(id);
     }

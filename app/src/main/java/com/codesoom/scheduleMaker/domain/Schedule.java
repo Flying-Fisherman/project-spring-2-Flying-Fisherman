@@ -39,6 +39,11 @@ public class Schedule {
     // ToDo : 스케쥴의 예정시간 등을 추가
 
     /**
+     * Schedule 작성자 ID
+     */
+    private Long userId;
+
+    /**
      * Schedule 정보를 변경합니다.
      *
      * @param source 변경할 Schedule 정보

@@ -16,4 +16,6 @@ public interface JpaScheduleRepository
     Schedule save(Schedule schedule);
 
     void delete(Schedule schedule);
+
+    Optional<Schedule> findByUserId(Long userId);
 }
