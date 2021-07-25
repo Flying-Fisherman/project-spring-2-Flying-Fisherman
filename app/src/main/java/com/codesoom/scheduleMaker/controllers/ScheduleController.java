@@ -65,12 +65,8 @@ public class ScheduleController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("isAuthenticated() and hasAuthority('USER')")
-    public Schedule createSchedule(@RequestBody @Valid ScheduleData scheduleData,
-                                   @AuthenticationPrincipal User user) {
-        User user2 = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println(user2.getId());
-        System.out.println(user);
-        return scheduleService.createSchedule(scheduleData, user);
+    public Schedule createSchedule(@RequestBody @Valid ScheduleData scheduleData) {
+        return scheduleService.createSchedule(scheduleData);
     }
 
     /**

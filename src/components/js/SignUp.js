@@ -49,9 +49,14 @@ function SignUp({ history }) {
     };
 
     const makeUserData = async () => {
-        axios.post('http://localhost:8080/users', body);
-
-        goBack();
+        axios.post('http://localhost:8080/users', body)
+        .then(() => {
+          console.log("success");
+          goBack();
+        })
+        .catch(() => {
+          console.log("SignUp Error");
+        })
     };
 
     const goBack = () => {
@@ -85,7 +90,7 @@ function SignUp({ history }) {
             <div className="col-sm-6">
               <input type="password" className="form-control"
               id="UserPassword" placeholder="password"
-              pattern="[a-zA-z1-9]{6,12}"
+              pattern="[a-zA-z0-9]{6,12}"
               value={password} onChange={PasswordHandler} required/>
             </div>
           </div>

@@ -12,8 +12,14 @@ jwt:
 
 spring:
   profiles: develop
+  h2:
+    console:
+      enabled: true
   datasource:
-    url: jdbc:h2:~/data/demo
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:~/data/ScheduleMaker
+    username: sa
+    password:
 
   devtools:
     livereload:
@@ -22,14 +28,10 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-
-    freemaker:
-      cache: false
-
 jwt:
   secret: "FlyingFishermanScheduleMakerCode"
-
 spring.devtools.livereload.enabled: true
+
 ---
 
 spring:
@@ -41,6 +43,7 @@ spring:
     password: ghdud1230
 
 ---
+
 spring:
   profiles: local
   datasource:

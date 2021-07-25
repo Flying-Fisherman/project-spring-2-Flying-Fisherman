@@ -37,6 +37,11 @@ function ScheduleMaker({ history }) {
         axios.post('http://localhost:8080/schedule', body)
         .then((res) => console.log(res))
         .catch((error) => {
+            console.log(error);
+            console.log(error.response);
+            console.log(error.request);
+            console.log(error.config);
+
         });
 
         empty();

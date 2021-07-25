@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios'
+import SignUp from './SignUp';
 import { withRouter } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -13,8 +14,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiTextField-root': {
-      margin: theme.spacing(1),
-      width: 200,
+      margin: theme.spacing(2),
+      width: 1000,
     },
   },
 }));
@@ -23,6 +24,8 @@ function LogInModal({ history }) {
 
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
+    const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
     const handleOpen = () => {
       setOpen(true);
@@ -30,6 +33,10 @@ function LogInModal({ history }) {
 
     const handleClose = () => {
       setOpen(false);
+      setError(false);
+      setErrorMessage("");
+      setUserId("");
+      setPassword("");
     };
 
     const [userId, setUserId] = useState("");
@@ -58,11 +65,20 @@ function LogInModal({ history }) {
     const logIn = async () => {
         axios.post('http://localhost:8080/session', body)
         .then((res) => {
-        registerSuccessful(userId, res.data.accessToken)
+          registerSuccessful(userId, res.data.accessToken)
+        })
+        .catch(() => {
+          console.log("ERROR is happened");
+          logInFail();
         });
     }
 
-    const registerSuccessful = (userId, token, e) => {
+    const logInFail = () => {
+        setError(true);
+        setErrorMessage("LogIn is failed. Check your ID or Password");
+    }
+
+    const registerSuccessful = (userId, token) => {
         localStorage.setItem('token', token);
         localStorage.setItem('authenticatedUser', userId);
         localStorage.setItem('log', true);
@@ -90,8 +106,8 @@ function LogInModal({ history }) {
         }, 500);
     }
 
-    const goSignIn = () => {
-        history.push('/');
+    const goSignUp = () => {
+        history.push('/signUp');
     }
 
     return (
@@ -113,14 +129,15 @@ function LogInModal({ history }) {
           <button type="button" onClick={handleOpen} className="btn btn-primary md-offset-6 md-2">
             Log In
           </button>
-          <button type="button" onClick={goSignIn} className="btn btn-primary md-2"
+          <button type="button" onClick={goSignUp} className="btn btn-primary md-2"
           style={{ marginLeft:"20px" }}>
-            Sign In
+            Sign Up
           </button>
           </>
         }
 
-        <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <Dialog open={open} onClose={handleClose}
+         aria-labelledby="form-dialog-title">
 
           <DialogTitle id="form-dialog-title">
             Log In
@@ -132,24 +149,30 @@ function LogInModal({ history }) {
              autoFocus
              required
              margin="dense"
-             id="UserID"
              label="Your ID"
              fullWidth
              value={userId}
              onChange={userIdHandler}
              required
+             variant="outlined"
+             error={error}
             />
 
             <br/>
 
             <TextField
-             id="UserPassword"
              label="password"
              type="password"
              value={password}
              onChange={passwordHandler}
              required
+             variant="outlined"
+             error={error}
             />
+
+            <div>
+              {errorMessage}
+            </div>
 
           </DialogContent>
 
