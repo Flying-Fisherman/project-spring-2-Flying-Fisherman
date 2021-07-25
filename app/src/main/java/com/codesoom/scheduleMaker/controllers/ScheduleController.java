@@ -60,7 +60,7 @@ public class ScheduleController {
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("isAuthenticated() and hasRole('USER')")
+    @PreAuthorize("isAuthenticated() and hasAuthority('USER')")
     public Schedule createSchedule(@RequestBody @Valid ScheduleData scheduleData) {
         return scheduleService.createSchedule(scheduleData);
     }
@@ -73,7 +73,7 @@ public class ScheduleController {
      * @return 수정된 Schedule
      */
     @PatchMapping("{id}")
-    @PreAuthorize("isAuthenticated() and hasRole('USER')")
+    @PreAuthorize("isAuthenticated() and hasAuthority('USER')")
     public Schedule updateSchedule(
             @PathVariable Long id,
             @RequestBody @Valid ScheduleData scheduleData
@@ -87,7 +87,7 @@ public class ScheduleController {
      * @param id Schedule 고유 식별자
      */
     @DeleteMapping("{id}")
-    @PreAuthorize("isAuthenticated() and hasRole('USER')")
+    @PreAuthorize("isAuthenticated() and hasAuthority('USER')")
     public void deleteSchedule(@PathVariable Long id) {
         scheduleService.deleteSchdule(id);
     }
